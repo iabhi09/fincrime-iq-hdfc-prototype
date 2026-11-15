@@ -1,9 +1,24 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 import streamlit as st
 from demo_scenarios import DEMO_SCENARIOS, get_demo_scenario
 from aml_concepts import concept_for_indicator, retrieve_concepts
 from fincrime_core import ABSTENTION, build_investigation_summary, load_chunks, retrieve, source_label
+
+ROOT = Path(__file__).resolve().parent
+SOURCE_REGISTRY_PATH = ROOT / "config" / "source_registry.json"
+
+
+def load_source_registry() -> dict:
+    """Load the reviewed public-source registry for transparent UI display."""
+    try:
+        return json.loads(SOURCE_REGISTRY_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {"sources": [], "registry_reviewed_on": None}
+
 
 st.set_page_config(page_title="FinCrime IQ", page_icon="🛡️", layout="wide")
 
@@ -28,6 +43,25 @@ policy_tab, investigation_tab, concepts_tab, about_tab = st.tabs(
 
 with policy_tab:
     st.markdown("### Ask about indexed public-source material")
+    registry = load_source_registry()
+    with st.expander("View configured public sources and review status"):
+        st.caption(
+            f"Registry review date: {registry.get('registry_reviewed_on') or 'not recorded'}. "
+            "A registry entry is not proof that the latest document has been downloaded, reviewed or legally validated."
+        )
+        if not registry.get("sources"):
+            st.info("The public-source registry could not be loaded.")
+        for source in registry.get("sources", []):
+            st.markdown(f"**{source.get('title', 'Untitled source')}**")
+            st.caption(
+                f"{source.get('publisher', 'Publisher not stated')} · "
+                f"{source.get('authority', 'Authority not classified')} · "
+                f"Status: {source.get('status', 'not recorded')}"
+            )
+            if source.get("url"):
+                st.markdown(f"[Open publisher source]({source['url']})")
+            if source.get("notes"):
+                st.caption(source["notes"])
     if not chunks:
         st.warning(
             "No policy passages are indexed in this checkout yet. The policy tab will not invent answers. "
