@@ -94,7 +94,9 @@ TYPOLOGIES = [
         "signals": [
             "pass through", "pass-through", "rapid movement", "immediately transferred",
             "same day", "received and transferred", "inflow and outflow",
-            "funds came in and went out", "quickly moved onward", "transferred out shortly",\n            "transferred almost all", "transferred nearly all", "single beneficiary",\n            "one beneficiary", "received funds from multiple people", "many unrelated people",
+            "funds came in and went out", "quickly moved onward", "transferred out shortly",
+            "transferred almost all", "transferred nearly all", "single beneficiary",
+            "one beneficiary", "received funds from multiple people", "many unrelated people",
         ],
         "explanation": "Funds enter an account and are moved onward quickly, with little apparent economic purpose or retention. A legitimate explanation may exist.",
         "checks": [
@@ -166,7 +168,8 @@ TYPOLOGIES = [
             "profile mismatch", "far exceeds salary", "much higher than salary",
             "income does not support", "inconsistent with occupation",
             "turnover mismatch", "unexpected high value", "outside expected activity",
-            "activity inconsistent with profile", "salaried customer receives large",\n            "large credits compared with salary", "credits far exceed declared income",
+            "activity inconsistent with profile", "salaried customer receives large",
+            "large credits compared with salary", "credits far exceed declared income",
         ],
         "explanation": "Observed transaction values, frequency, counterparties, or geography may not align with the customer's known profile. A salary or occupation mention alone is not a red flag.",
         "checks": [
