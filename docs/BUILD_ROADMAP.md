@@ -20,11 +20,13 @@ This roadmap describes the public portfolio prototype. It is not an HDFC Bank im
 - [x] Add retrieval timestamps, HTTP metadata and SHA-256 hashes to the local ingestion manifest
 - [ ] Improve PDF extraction checks for tables, footnotes and scanned pages
 - [ ] Preserve source-to-passage traceability and stable page references
-- [ ] Add source filters so HDFC public policy, Indian regulation and FATF are not conflated
+- [x] Add source filters so HDFC public policy, Indian regulation and FATF are not conflated
 - [ ] Add source freshness and superseded-document warnings
 
 ## Phase 3 — Investigation assistant
-- [ ] Expand scenario vocabulary and add negation/context safeguards
+- [x] Add a basic explicit-negation safeguard to phrase matching (limited; not full NLP)
+- [x] Add a synthetic scenario regression suite
+- [ ] Expand scenario vocabulary and add broader context safeguards
 - [ ] Explain each potential indicator in plain language
 - [ ] Separate observed facts, possible interpretations and missing information
 - [ ] Generate evidence-led next-check suggestions
