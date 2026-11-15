@@ -14,8 +14,10 @@ This roadmap describes the public portfolio prototype. It is not an HDFC Bank im
 - [ ] Run the app locally and review the user experience
 
 ## Phase 2 — Evidence and source governance
-- [x] Review official publisher URLs and visible version metadata; record caveats in `docs/PUBLIC_SOURCE_CATALOGUE.md`\n- [ ] Independently archive and manually validate each downloaded source before relying on it
-- [x] Add source review dates, known publication/update metadata and authority labels to the registry\n- [x] Add retrieval timestamps, HTTP metadata and SHA-256 hashes to the local ingestion manifest
+- [x] Review official publisher URLs and visible version metadata; record caveats in `docs/PUBLIC_SOURCE_CATALOGUE.md`
+- [ ] Independently archive and manually validate each downloaded source before relying on it
+- [x] Add source review dates, known publication/update metadata and authority labels to the registry
+- [x] Add retrieval timestamps, HTTP metadata and SHA-256 hashes to the local ingestion manifest
 - [ ] Improve PDF extraction checks for tables, footnotes and scanned pages
 - [ ] Preserve source-to-passage traceability and stable page references
 - [ ] Add source filters so HDFC public policy, Indian regulation and FATF are not conflated
