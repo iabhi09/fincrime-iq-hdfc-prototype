@@ -18,7 +18,7 @@ st.markdown(
 )
 
 chunks = load_chunks()
-st.caption(f"Knowledge base: {len(chunks)} extracted passages loaded")
+st.caption(f"Knowledge base: {len(chunks)} extracted passages loaded · Retrieval: transparent lexical ranking")
 
 policy_tab, investigation_tab, about_tab = st.tabs(
     ["📚 Policy Intelligence", "🔎 Investigation Intelligence", "ℹ️ About & limitations"]
@@ -49,7 +49,7 @@ with policy_tab:
                             st.markdown(f"[Open source document]({hit['url']})")
                         if hit.get("page"):
                             st.caption(f"Page: {hit['page']}")
-                st.info("Review the cited source text directly before relying on it. This MVP retrieves passages; it does not yet generate a verified legal interpretation.")
+                st.info("Review the cited source text directly before relying on it. Ranking scores are not confidence scores. This MVP retrieves evidence; it does not generate a verified legal interpretation.")
 
 with investigation_tab:
     st.markdown("### Explore an anonymised transaction scenario")
@@ -69,6 +69,7 @@ with investigation_tab:
                 for finding in findings:
                     with st.expander(finding["name"], expanded=True):
                         st.write(finding["explanation"])
+                        st.caption("Detection method: explicit phrase matching. A missing match does not mean the activity is safe.")
                         st.markdown("**Matched phrases in your description**")
                         st.write(", ".join(finding["matched_indicators"]))
                         st.markdown("**Suggested investigative checks**")
@@ -91,7 +92,7 @@ with about_tab:
 - Suggest general evidence-led investigation checks.
 
 **Current limitations**
-- Retrieval is keyword-based, not semantic or hybrid BM25 retrieval.
+- Retrieval uses transparent lexical ranking (TF-IDF-like), not semantic search or BM25.
 - Scenario analysis is phrase matching, not a trained AML model.
 - The application does not establish facts, determine suspicion, generate SAR/STR decisions, or provide legal advice.
 - Internal HDFC Bank SOPs, alert thresholds, workflows, and confidential procedures are not included unless separately approved and lawfully provided.
