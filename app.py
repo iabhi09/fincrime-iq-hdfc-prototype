@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import streamlit as st
-from fincrime_core import ABSTENTION, analyse_scenario, load_chunks, retrieve, source_label
+from fincrime_core import ABSTENTION, build_investigation_summary, load_chunks, retrieve, source_label
 
 st.set_page_config(page_title="FinCrime IQ", page_icon="🛡️", layout="wide")
 
@@ -76,24 +76,37 @@ with investigation_tab:
         if not scenario.strip():
             st.info("Describe an anonymised scenario first.")
         else:
-            findings = analyse_scenario(scenario)
-            if findings:
-                st.markdown("#### Potential indicators to consider")
-                for finding in findings:
+            summary = build_investigation_summary(scenario)
+
+            st.markdown("#### 1. Observed facts — as described")
+            st.caption("These are statements from the scenario you entered; the assistant has not independently verified them.")
+            for fact in summary["observed_facts"]:
+                st.markdown(f"- {fact}")
+
+            st.markdown("#### 2. Potential indicators")
+            if summary["potential_indicators"]:
+                for finding in summary["potential_indicators"]:
                     with st.expander(finding["name"], expanded=True):
                         st.write(finding["explanation"])
-                        st.caption("Detection method: explicit phrase matching. A missing match does not mean the activity is safe.")
-                        st.markdown("**Matched phrases in your description**")
+                        st.caption("Detection method: explicit phrase matching, not a probability or risk score.")
+                        st.markdown("**Matched phrases**")
                         st.write(", ".join(finding["matched_indicators"]))
-                        st.markdown("**Suggested investigative checks**")
-                        for check in finding["checks"]:
-                            st.markdown(f"- {check}")
             else:
-                st.info("No configured phrase-based indicator was matched. This does not mean the activity is low risk or cleared.")
-            st.warning(
-                "These are preliminary educational indicators, not findings of wrongdoing. "
-                "A red flag is not proof of money laundering. Consider the full customer profile, context, evidence, and applicable approved procedures."
-            )
+                st.info(summary["no_indicator_message"])
+
+            st.markdown("#### 3. Alternative explanations to test")
+            for explanation in summary["alternative_explanations"]:
+                st.markdown(f"- {explanation}")
+
+            st.markdown("#### 4. Missing information")
+            for item in summary["missing_information"]:
+                st.markdown(f"- {item}")
+
+            st.markdown("#### 5. Suggested investigation checks")
+            for check in summary["suggested_checks"]:
+                st.markdown(f"- {check}")
+
+            st.warning(summary["disclaimer"])
 
 with about_tab:
     st.markdown("### What this prototype can and cannot do")
