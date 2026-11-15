@@ -16,6 +16,7 @@ This roadmap describes the public portfolio prototype. It is not an HDFC Bank im
 ## Phase 2 — Evidence and source governance
 - [x] Review official publisher URLs and visible version metadata; record caveats in `docs/PUBLIC_SOURCE_CATALOGUE.md`
 - [ ] Independently archive and manually validate each downloaded source before relying on it
+- [ ] Run ingestion locally and inspect the manifest, extraction completeness and source-to-passage traceability
 - [x] Add source review dates, known publication/update metadata and authority labels to the registry
 - [x] Add retrieval timestamps, HTTP metadata and SHA-256 hashes to the local ingestion manifest
 - [ ] Improve PDF extraction checks for tables, footnotes and scanned pages
@@ -33,13 +34,16 @@ This roadmap describes the public portfolio prototype. It is not an HDFC Bank im
 - [x] Keep outputs explicitly non-determinative and human-reviewed
 - [x] Add a curated AML concept library with definitions, examples, alternative explanations and investigation checks
 - [x] Add deterministic concept lookup and unit tests
+- [x] Add selectable, clearly labelled synthetic demo scenarios
+- [x] Add a manual test and demonstration guide
 
 ## Phase 4 — Demonstration readiness
-- [ ] Add privacy-safe sample questions and synthetic scenarios
-- [ ] Add clear source coverage and known-limitations pages
-- [ ] Add deployment configuration and deployment guide
-- [ ] Perform end-to-end testing
+- [x] Add privacy-safe sample questions and synthetic scenarios
+- [x] Add clear source coverage and known-limitations pages
+- [x] Add deployment configuration and deployment guide
+- [ ] Perform local end-to-end testing
 - [ ] Review branding and disclaimers before public sharing
+- [ ] Confirm source ingestion and extracted passages are reviewed before any policy demo
 
 ## Non-negotiable boundaries
 - No real customer or employee data.

@@ -14,12 +14,13 @@ FinCrime IQ is designed to help AML/KYC analysts understand public policy materi
 - Abstain when indexed policy material does not support an answer.
 
 ## Current capabilities
-- Streamlit interface with Policy Intelligence, Investigation Intelligence and AML Concepts areas.
+- Streamlit interface with Policy Intelligence, Investigation Intelligence, AML Concepts, and About & limitations areas.
 - Transparent lexical policy retrieval (not semantic search or a complete RAG system).
 - Phrase-based educational indicators for a limited set of typologies.
 - Structured investigation summaries separating user-described facts, possible indicators, alternative explanations, missing information and checks.
 - Curated AML concept cards with definitions, simple examples, possible indicators, alternative explanations and investigation checks.
-- GitHub Actions compiles Python files and runs unit tests.
+- Synthetic scenario selector for safe demonstrations, including routine activity and patterns that may warrant further investigation.
+- GitHub Actions compiles Python files and runs unit tests, including concept and synthetic-scenario tests.
 
 ## Safety boundaries
 - A typology or red flag is an indicator, not proof of financial crime.
@@ -32,5 +33,14 @@ FinCrime IQ is designed to help AML/KYC analysts understand public policy materi
 ## Technical approach
 Python, Streamlit, local document extraction, transparent lexical/alias lookup, and local files. No paid external LLM API is required for the current deterministic prototype.
 
+## Run locally (when ready)
+1. Create and activate a Python virtual environment.
+2. Install packages with `pip install -r requirements.txt`.
+3. Run unit tests with `python -m unittest discover -s tests -v`.
+4. Optional: index configured public sources with `python -m ingestion.ingest`, then manually review the manifest and extracted text.
+5. Start the app with `streamlit run app.py`.
+
+See [docs/TEST_PLAN.md](docs/TEST_PLAN.md) and [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) before a demonstration.
+
 ## Known limitations and next work
-The prototype is not a validated or deployment-ready AML assistant. Policy extraction, source currency, broader language coverage, end-to-end behaviour, security and user experience still require review. The concept library is curated and finite; it does not understand arbitrary questions like a general-purpose language model.
+The prototype is not a validated or deployment-ready AML assistant. Policy extraction, source currency, broader language coverage, end-to-end behaviour, security and user experience still require review. The concept library is curated and finite; it does not understand arbitrary questions like a general-purpose language model. Policy Intelligence will abstain until public source passages have been ingested and reviewed.
