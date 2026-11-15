@@ -246,10 +246,10 @@ def build_investigation_summary(scenario: str) -> dict[str, Any]:
     Observed facts are only the user's own sentences, not independently
     verified facts. Interpretations remain phrase-based educational prompts.
     """
-    cleaned = re.sub(r"\\s+", " ", scenario).strip()
+    cleaned = re.sub(r"\s+", " ", scenario).strip()
     observed = [
-        sentence.strip(" \\t-")
-        for sentence in re.split(r"(?<=[.!?])\\s+", cleaned)
+        sentence.strip(" \t-")
+        for sentence in re.split(r"(?<=[.!?])\s+", cleaned)
         if sentence.strip(" \\t-")
     ]
     indicators = analyse_scenario(cleaned)
