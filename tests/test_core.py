@@ -60,6 +60,20 @@ class CoreTests(unittest.TestCase):
         self.assertIn("Potential pass-through activity", names)
         self.assertIn("Potential money-mule indicators", names)
 
+    def test_explicit_negation_suppresses_phrase_match(self):
+        result = analyse_scenario(
+            "There was no rapid movement of funds and no same-day transfer."
+        )
+        self.assertFalse(any(
+            x["name"] == "Potential pass-through activity" for x in result
+        ))
+
+    def test_non_negated_same_day_pattern_still_matches(self):
+        result = analyse_scenario("Funds moved on the same day.")
+        self.assertTrue(any(
+            x["name"] == "Potential pass-through activity" for x in result
+        ))
+
     def test_one_beneficiary_phrase_detected(self):
         result = analyse_scenario("Funds from multiple people were sent to one beneficiary.")
         self.assertTrue(any(x["name"] == "Potential pass-through activity" for x in result))
