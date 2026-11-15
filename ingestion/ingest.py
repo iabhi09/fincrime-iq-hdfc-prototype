@@ -15,7 +15,7 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-import fitz
+import pymupdf as fitz
 import requests
 from bs4 import BeautifulSoup
 
