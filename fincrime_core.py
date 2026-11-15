@@ -51,6 +51,7 @@ def retrieve(
     query: str,
     chunks: list[dict[str, Any]] | None = None,
     limit: int = 5,
+    authorities: set[str] | None = None,
 ) -> list[dict[str, Any]]:
     """Rank passages with a small transparent TF-IDF-like lexical score.
 
@@ -58,6 +59,8 @@ def retrieve(
     not calibrated confidence values.
     """
     corpus = chunks if chunks is not None else load_chunks()
+    if authorities:
+        corpus = [row for row in corpus if row.get("authority") in authorities]
     query_terms = set(terms(query))
     if not query_terms or not corpus or limit <= 0:
         return []
