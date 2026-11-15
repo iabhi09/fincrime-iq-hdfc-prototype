@@ -196,12 +196,35 @@ TYPOLOGIES = [
 ]
 
 
+def _is_negated(text: str, signal: str) -> bool:
+    """Detect a small set of explicit negations immediately before a phrase.
+
+    This is a conservative safeguard, not full natural-language understanding.
+    """
+    start = 0
+    while True:
+        position = text.find(signal, start)
+        if position < 0:
+            return False
+        prefix = text[max(0, position - 60):position]
+        if re.search(
+            r"\b(?:no|not|never|without|did not|does not|is not|was not|were not)\b"
+            r"(?:\W+\w+){0,3}\W*$",
+            prefix,
+        ):
+            return True
+        start = position + len(signal)
+
+
 def analyse_scenario(scenario: str) -> list[dict[str, Any]]:
     """Return possible educational indicators based on explicit phrase matches."""
     text = re.sub(r"\s+", " ", scenario.lower())
     results = []
     for item in TYPOLOGIES:
-        hits = [signal for signal in item["signals"] if signal in text]
+        hits = [
+            signal for signal in item["signals"]
+            if signal in text and not _is_negated(text, signal)
+        ]
         if hits:
             results.append({
                 "name": item["name"],
