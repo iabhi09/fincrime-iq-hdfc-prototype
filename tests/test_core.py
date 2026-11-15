@@ -63,7 +63,8 @@ class CoreTests(unittest.TestCase):
     def test_one_beneficiary_phrase_detected(self):
         result = analyse_scenario("Funds from multiple people were sent to one beneficiary.")
         self.assertTrue(any(x["name"] == "Potential pass-through activity" for x in result))
-\n    def test_no_match_is_not_a_clearance(self):
+
+    def test_no_match_is_not_a_clearance(self):
         self.assertEqual(analyse_scenario("A customer updated their email address."), [])
         self.assertEqual(ABSTENTION, "This information is not covered in the provided policy documents.")
 
