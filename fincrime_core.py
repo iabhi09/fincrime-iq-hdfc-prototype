@@ -125,7 +125,8 @@ TYPOLOGIES = [
         "signals": [
             "money mule", "unrelated counterparties", "third party", "commission",
             "account used by others", "forwarding funds", "receiving money for others",
-            "keeping a commission", "transferring on behalf of others",\n            "unrelated individuals", "several unrelated individuals", "multiple unrelated people",
+            "keeping a commission", "transferring on behalf of others",
+            "unrelated individuals", "several unrelated individuals", "multiple unrelated people",
         ],
         "explanation": "An account may be used to receive and move funds for other people, sometimes in exchange for a fee. These indicators alone do not establish mule activity.",
         "checks": [
