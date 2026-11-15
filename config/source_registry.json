@@ -1,0 +1,62 @@
+{
+  "project": "FinCrime IQ — Policy & Investigation Intelligence",
+  "disclaimer": "Independent public-source prototype; not affiliated with or endorsed by HDFC Bank.",
+  "sources": [
+    {
+      "id": "hdfc_kyc_aml_policy",
+      "title": "HDFC Bank Policy on KYC norms, AML and CFT measures",
+      "authority": "HDFC Bank public policy",
+      "url": "https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/personal-banking/discover-products/about-us/corporate-governance/codes-and-policies/Policy-on-KYC-norms-AML-and-CFT-measures.pdf",
+      "format": "pdf",
+      "status": "verify_before_use"
+    },
+    {
+      "id": "hdfc_codes_policies",
+      "title": "HDFC Bank Codes and Policies",
+      "authority": "HDFC Bank public website",
+      "url": "https://www.hdfc.bank.in/about-us/corporate-governance/codes-and-policies",
+      "format": "html",
+      "status": "directory"
+    },
+    {
+      "id": "rbi_kyc_2025",
+      "title": "RBI (Commercial Banks – Know Your Customer) Directions, 2025",
+      "authority": "Indian regulation",
+      "url": "https://rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=13141",
+      "format": "html",
+      "status": "verify_current_version"
+    },
+    {
+      "id": "pmla_india_code",
+      "title": "Prevention of Money-laundering Act, 2002",
+      "authority": "Indian legislation",
+      "url": "https://www.indiacode.nic.in/indiacode/handle/123456789/2036?view_type=browse",
+      "format": "html",
+      "status": "verify_amendments_and_consolidation"
+    },
+    {
+      "id": "fiu_rules",
+      "title": "FIU-IND AML legislation and notifications",
+      "authority": "Indian regulatory material",
+      "url": "https://fiuindia.gov.in/files/AML_Legislation/notification.html",
+      "format": "html",
+      "status": "review_amendments"
+    },
+    {
+      "id": "fiu_faq",
+      "title": "FIU-IND FAQs",
+      "authority": "Indian regulatory guidance",
+      "url": "https://fiuindia.gov.in/files/FAQs/FAQs.html",
+      "format": "html",
+      "status": "verify_current_version"
+    },
+    {
+      "id": "fatf_recommendations",
+      "title": "FATF Recommendations",
+      "authority": "International standards",
+      "url": "https://www.fatf-gafi.org/en/publications/Fatfrecommendations/Fatf-recommendations.html",
+      "format": "html",
+      "status": "verify_current_version"
+    }
+  ]
+}
