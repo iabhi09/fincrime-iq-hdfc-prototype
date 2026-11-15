@@ -74,8 +74,18 @@ with policy_tab:
 with investigation_tab:
     st.markdown("### Explore an anonymised transaction scenario")
     st.caption("You can use one of the invented examples or write your own fully anonymised scenario.")
+    def _load_demo_scenario() -> None:
+        st.session_state["scenario"] = get_demo_scenario(
+            st.session_state.get("demo_scenario", "")
+        )
+
     demo_names = ["Write my own scenario"] + list(DEMO_SCENARIOS.keys())
-    selected_demo = st.selectbox("Optional synthetic example", demo_names, key="demo_scenario")
+    selected_demo = st.selectbox(
+        "Optional synthetic example",
+        demo_names,
+        key="demo_scenario",
+        on_change=_load_demo_scenario,
+    )
     default_scenario = get_demo_scenario(selected_demo)
     scenario = st.text_area(
         "Describe the activity without personal or identifying information",
