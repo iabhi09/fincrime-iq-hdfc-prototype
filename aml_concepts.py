@@ -146,3 +146,25 @@ def retrieve_concepts(query: str, limit: int = 3) -> list[dict[str, Any]]:
             ranked.append((exact, overlap, item))
     ranked.sort(key=lambda row: (row[0], row[1]), reverse=True)
     return [dict(item, lookup_method="alias_and_keyword_match") for _, _, item in ranked[:limit]]
+
+
+INDICATOR_CONCEPT_MAP = {
+    "Potential pass-through activity": "Pass-through activity",
+    "Potential funnel-account indicators": "Funnel account",
+    "Potential money-mule indicators": "Money mule",
+    "Potential structuring indicators": "Structuring",
+    "Potential layering indicators": "Layering",
+    "Potential customer-profile mismatch": "Customer-profile mismatch",
+    "Potential circular or round-tripping activity": "Round-tripping",
+}
+
+
+def concept_for_indicator(indicator_name: str) -> dict[str, Any] | None:
+    """Return curated concept context for a configured phrase indicator."""
+    concept_name = INDICATOR_CONCEPT_MAP.get(indicator_name)
+    if not concept_name:
+        return None
+    for item in CONCEPTS:
+        if item["name"] == concept_name:
+            return dict(item)
+    return None

@@ -1,6 +1,6 @@
 import unittest
 
-from aml_concepts import CONCEPTS, retrieve_concepts
+from aml_concepts import CONCEPTS, concept_for_indicator, retrieve_concepts
 
 
 class AMLConceptTests(unittest.TestCase):
@@ -30,6 +30,16 @@ class AMLConceptTests(unittest.TestCase):
 
     def test_no_match_returns_empty(self):
         self.assertEqual(retrieve_concepts("quantum gardening spaceship"), [])
+
+    def test_investigation_indicator_maps_to_concept_explanation(self):
+        concept = concept_for_indicator("Potential pass-through activity")
+        self.assertIsNotNone(concept)
+        self.assertEqual(concept["name"], "Pass-through activity")
+        self.assertTrue(concept["definition"])
+        self.assertTrue(concept["checks"])
+
+    def test_unknown_indicator_has_no_concept_mapping(self):
+        self.assertIsNone(concept_for_indicator("Unconfigured indicator"))
 
     def test_empty_query_and_limit(self):
         self.assertEqual(retrieve_concepts(" "), [])

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import streamlit as st
 from demo_scenarios import DEMO_SCENARIOS, get_demo_scenario
-from aml_concepts import retrieve_concepts
+from aml_concepts import concept_for_indicator, retrieve_concepts
 from fincrime_core import ABSTENTION, build_investigation_summary, load_chunks, retrieve, source_label
 
 st.set_page_config(page_title="FinCrime IQ", page_icon="🛡️", layout="wide")
@@ -108,6 +108,15 @@ with investigation_tab:
                 for finding in summary["potential_indicators"]:
                     with st.expander(finding["name"], expanded=True):
                         st.write(finding["explanation"])
+                        concept = concept_for_indicator(finding["name"])
+                        if concept:
+                            st.markdown("**What this concept means**")
+                            st.write(concept["definition"])
+                            st.markdown("**Simple example**")
+                            st.write(concept["example"])
+                            st.markdown("**What to examine next**")
+                            for check in concept["checks"]:
+                                st.markdown(f"- {check}")
                         st.caption("Detection method: explicit phrase matching, not a probability or risk score.")
                         st.markdown("**Matched phrases**")
                         st.write(", ".join(finding["matched_indicators"]))
