@@ -10,12 +10,12 @@ This roadmap describes the public portfolio prototype. It is not an HDFC Bank im
 - [x] Phrase-based educational indicator rules
 - [x] Unit tests for core logic
 - [x] GitHub Actions test workflow
-- [ ] Run tests in GitHub Actions and resolve any failures
+- [x] Run core and ingestion unit tests in GitHub Actions (green on commit `3e9598387cd20a220cac4f3f42c2079dc4ea8001`; later documentation/configuration commits are also queued for checks)
 - [ ] Run the app locally and review the user experience
 
 ## Phase 2 — Evidence and source governance
-- [ ] Verify each source URL and current version before ingestion
-- [ ] Record retrieval date, publication/effective date, version and authority
+- [x] Review official publisher URLs and visible version metadata; record caveats in `docs/PUBLIC_SOURCE_CATALOGUE.md`\n- [ ] Independently archive and manually validate each downloaded source before relying on it
+- [x] Add source review dates, known publication/update metadata and authority labels to the registry\n- [x] Add retrieval timestamps, HTTP metadata and SHA-256 hashes to the local ingestion manifest
 - [ ] Improve PDF extraction checks for tables, footnotes and scanned pages
 - [ ] Preserve source-to-passage traceability and stable page references
 - [ ] Add source filters so HDFC public policy, Indian regulation and FATF are not conflated
