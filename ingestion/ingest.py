@@ -95,6 +95,7 @@ def main() -> None:
         url = source["url"]
         expected_format = source.get("format", "html")
         print(f"Fetching {source['title']} ...")
+        response = None
         record = {
             "source_id": source_id,
             "title": source["title"],
@@ -173,7 +174,7 @@ def main() -> None:
             record.update({"status": "failed", "error": str(exc)})
             print(f"  WARNING: Could not ingest {url}: {exc}")
         finally:
-            if "response" in locals():
+            if response is not None:
                 response.close()
             manifest_sources.append(record)
             time.sleep(1.0)
