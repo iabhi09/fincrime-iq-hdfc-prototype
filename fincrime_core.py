@@ -112,7 +112,7 @@ TYPOLOGIES = [
     {
         "name": "Potential funnel-account indicators",
         "signals": [
-            "funnel account", "many locations", "multiple locations", "cash deposits",
+            "funnel account", "many locations", "multiple locations",
             "different branches", "deposits followed by", "deposits from different cities",
             "cash collected from multiple people",
         ],
