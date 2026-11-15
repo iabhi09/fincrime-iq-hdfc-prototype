@@ -37,6 +37,17 @@
       "notes": "Directory confirms that the KYC/AML/CFT policy and a Note on KYC/AML/CFT process are listed. Directory content itself is not a substitute for the linked documents."
     },
     {
+      "id": "hdfc_note_kyc_aml_cft_process",
+      "title": "HDFC Bank Note on KYC/AML/CFT Process",
+      "authority": "HDFC Bank public overview — historical / explanatory",
+      "publisher": "HDFC Bank",
+      "url": "https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/personal-banking/discover-products/about-us/corporate-governance/codes-and-policies/note-on-kyc-aml-cft-process.pdf",
+      "format": "pdf",
+      "checked_on": "2026-11-15",
+      "status": "historical_overview_review_before_use",
+      "notes": "Publicly available overview with undated/older publication metadata. It describes broad governance and control themes and states that product/operation functions maintain separate SOPs and internal guidelines. Do not use as current operating procedure or as a source for unpublished internal processes."
+    },
+    {
       "id": "rbi_kyc_2025",
       "title": "RBI (Commercial Banks – Know Your Customer) Directions, 2025",
       "authority": "Indian law and regulation",
