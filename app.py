@@ -26,6 +26,16 @@ policy_tab, investigation_tab, about_tab = st.tabs(
 
 with policy_tab:
     st.markdown("### Ask about indexed public-source material")
+    authority_options = sorted({
+        str(row.get("authority")).strip()
+        for row in chunks
+        if row.get("authority") and str(row.get("authority")).strip()
+    })
+    selected_authority = st.selectbox(
+        "Source authority",
+        options=["All source classes"] + authority_options,
+        help="Keep HDFC public policy, Indian regulation and international standards distinct."
+    )
     question = st.text_area(
         "Your policy or AML/KYC question",
         placeholder="Example: What customer due diligence concepts are described in the indexed public documents?",
@@ -36,7 +46,8 @@ with policy_tab:
         if not question.strip():
             st.info("Enter a question first.")
         else:
-            hits = retrieve(question, chunks)
+            authority_filter = None if selected_authority == "All source classes" else {selected_authority}
+            hits = retrieve(question, chunks, authorities=authority_filter)
             if not hits:
                 st.warning(ABSTENTION)
                 st.caption("No sufficiently relevant passage was found in the currently indexed knowledge base.")
@@ -44,6 +55,8 @@ with policy_tab:
                 st.markdown("#### Relevant source passages")
                 for i, hit in enumerate(hits, 1):
                     with st.expander(f"{i}. {source_label(hit)} · score {hit['retrieval_score']}", expanded=(i == 1)):
+                        if hit.get("authority"):
+                            st.caption(f"Authority class: {hit['authority']}")
                         st.write(hit["text"])
                         if hit.get("url"):
                             st.markdown(f"[Open source document]({hit['url']})")
