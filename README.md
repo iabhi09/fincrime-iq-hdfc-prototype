@@ -26,6 +26,13 @@ FinCrime IQ is designed to help AML/KYC analysts understand public policy materi
 
 Python, Streamlit, local document extraction, source-aware retrieval, and a local metadata/index store. No paid external LLM API is required for the initial deterministic prototype.
 
-## Status
+## Current engineering status
 
-Project foundation is being assembled. Source verification, ingestion quality, tests, and deployment are still required before the prototype can be considered ready for demonstration.
+- Streamlit interface with separate Policy Intelligence and Investigation Intelligence areas.
+- Transparent lexical retrieval (not semantic search or a complete RAG system).
+- Rule-based educational typology indicators with explicit phrase matches and investigative checks.
+- Public-source registry with authority labels and review metadata.
+- Local ingestion pipeline that records source hashes, retrieval timestamps, HTTP metadata, extraction counts and a manifest.
+- GitHub Actions workflow compiles Python files and runs unit tests on pushes and pull requests.
+
+The automated checks have passed on the initial implementation. The latest source-registry and ingestion changes are being checked by subsequent workflow runs. The project is not yet a validated or deployment-ready AML assistant. Source extraction, legal currency, end-to-end behaviour and the user experience still require review.
