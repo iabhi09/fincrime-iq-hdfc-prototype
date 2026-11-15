@@ -250,7 +250,7 @@ def build_investigation_summary(scenario: str) -> dict[str, Any]:
     observed = [
         sentence.strip(" \t-")
         for sentence in re.split(r"(?<=[.!?])\s+", cleaned)
-        if sentence.strip(" \\t-")
+        if sentence.strip(" \t-")
     ]
     indicators = analyse_scenario(cleaned)
     checks = [
