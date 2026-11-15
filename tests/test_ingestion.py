@@ -5,7 +5,7 @@ from ingestion.ingest import clean, safe_filename, split_chunks
 
 class IngestionTests(unittest.TestCase):
     def test_clean_collapses_whitespace(self):
-        self.assertEqual(clean("  RBI\\n  KYC   Directions "), "RBI KYC Directions")
+        self.assertEqual(clean("  RBI\n  KYC   Directions "), "RBI KYC Directions")
 
     def test_split_chunks_preserves_content(self):
         text = " ".join(f"word{i}" for i in range(100))
