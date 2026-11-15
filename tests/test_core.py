@@ -1,21 +1,57 @@
+import json
+import tempfile
 import unittest
+from pathlib import Path
 
-from fincrime_core import analyse_scenario, retrieve
+from fincrime_core import ABSTENTION, analyse_scenario, load_chunks, retrieve
 
 
 class CoreTests(unittest.TestCase):
     def test_retrieval_returns_matching_chunk(self):
-        chunks = [{"source_title": "Test policy", "text": "Customer due diligence and beneficial ownership checks."}]
+        chunks = [
+            {"source_title": "CDD policy", "text": "Customer due diligence and beneficial ownership checks."},
+            {"source_title": "Cash deposits", "text": "Cash deposit monitoring and branch location records."},
+        ]
         result = retrieve("beneficial ownership", chunks)
         self.assertEqual(len(result), 1)
-        self.assertEqual(result[0]["source_title"], "Test policy")
+        self.assertEqual(result[0]["source_title"], "CDD policy")
+        self.assertIn("matched_terms", result[0])
+
+    def test_retrieval_handles_empty_inputs(self):
+        self.assertEqual(retrieve("   ", []), [])
+        self.assertEqual(retrieve("beneficial ownership", [], limit=0), [])
+
+    def test_retrieval_ranks_more_relevant_passage_first(self):
+        chunks = [
+            {"source_title": "General", "text": "Customer records are maintained."},
+            {"source_title": "Relevant", "text": "Beneficial ownership identification and verification is part of customer due diligence."},
+        ]
+        result = retrieve("beneficial ownership verification", chunks)
+        self.assertEqual(result[0]["source_title"], "Relevant")
+
+    def test_load_chunks_skips_malformed_lines(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "chunks.jsonl"
+            path.write_text('{"text":"valid passage"}\nnot-json\n', encoding="utf-8")
+            self.assertEqual(len(load_chunks(path)), 1)
 
     def test_pass_through_phrase_is_detected(self):
         result = analyse_scenario("Funds received and transferred on the same day.")
         self.assertTrue(any(x["name"] == "Potential pass-through activity" for x in result))
 
+    def test_salary_alone_does_not_trigger_profile_mismatch(self):
+        self.assertFalse(any(
+            x["name"] == "Potential customer-profile mismatch"
+            for x in analyse_scenario("The customer receives a monthly salary.")
+        ))
+
+    def test_explicit_profile_mismatch_is_detected(self):
+        result = analyse_scenario("Transaction activity is much higher than salary and outside expected activity.")
+        self.assertTrue(any(x["name"] == "Potential customer-profile mismatch" for x in result))
+
     def test_no_match_is_not_a_clearance(self):
         self.assertEqual(analyse_scenario("A customer updated their email address."), [])
+        self.assertEqual(ABSTENTION, "This information is not covered in the provided policy documents.")
 
 
 if __name__ == "__main__":
