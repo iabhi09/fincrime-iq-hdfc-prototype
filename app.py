@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import streamlit as st
+from aml_concepts import retrieve_concepts
 from fincrime_core import ABSTENTION, build_investigation_summary, load_chunks, retrieve, source_label
 
 st.set_page_config(page_title="FinCrime IQ", page_icon="🛡️", layout="wide")
@@ -20,8 +21,8 @@ st.markdown(
 chunks = load_chunks()
 st.caption(f"Knowledge base: {len(chunks)} extracted passages loaded · Retrieval: transparent lexical ranking")
 
-policy_tab, investigation_tab, about_tab = st.tabs(
-    ["📚 Policy Intelligence", "🔎 Investigation Intelligence", "ℹ️ About & limitations"]
+policy_tab, investigation_tab, concepts_tab, about_tab = st.tabs(
+    ["📚 Policy Intelligence", "🔎 Investigation Intelligence", "💡 AML Concepts", "ℹ️ About & limitations"]
 )
 
 with policy_tab:
@@ -77,12 +78,10 @@ with investigation_tab:
             st.info("Describe an anonymised scenario first.")
         else:
             summary = build_investigation_summary(scenario)
-
             st.markdown("#### 1. Observed facts — as described")
             st.caption("These are statements from the scenario you entered; the assistant has not independently verified them.")
             for fact in summary["observed_facts"]:
                 st.markdown(f"- {fact}")
-
             st.markdown("#### 2. Potential indicators")
             if summary["potential_indicators"]:
                 for finding in summary["potential_indicators"]:
@@ -93,20 +92,49 @@ with investigation_tab:
                         st.write(", ".join(finding["matched_indicators"]))
             else:
                 st.info(summary["no_indicator_message"])
-
             st.markdown("#### 3. Alternative explanations to test")
             for explanation in summary["alternative_explanations"]:
                 st.markdown(f"- {explanation}")
-
             st.markdown("#### 4. Missing information")
             for item in summary["missing_information"]:
                 st.markdown(f"- {item}")
-
             st.markdown("#### 5. Suggested investigation checks")
             for check in summary["suggested_checks"]:
                 st.markdown(f"- {check}")
-
             st.warning(summary["disclaimer"])
+
+with concepts_tab:
+    st.markdown("### Ask an AML concept in plain language")
+    st.caption("Curated educational explanations with transparent alias/keyword lookup. These are not HDFC Bank policy, legal advice, or a substitute for current approved procedures.")
+    concept_question = st.text_input(
+        "What would you like to understand?",
+        placeholder="Example: What is a funnel account and what should I check?"
+    )
+    if st.button("Explain concept", type="primary", key="concept_search"):
+        if not concept_question.strip():
+            st.info("Enter a concept or question first.")
+        else:
+            concept_hits = retrieve_concepts(concept_question, limit=3)
+            if not concept_hits:
+                st.info("This concept is not yet in the curated AML Concepts library. Try a specific term such as funnel account, layering, structuring, money mule, placement, integration, round-tripping, pass-through activity, or source of funds.")
+            else:
+                for concept in concept_hits:
+                    with st.expander(concept["name"], expanded=True):
+                        st.markdown("**In simple words**")
+                        st.write(concept["definition"])
+                        st.markdown("**Simple example**")
+                        st.write(concept["example"])
+                        st.markdown("**Possible indicators to understand**")
+                        for indicator in concept["indicators"]:
+                            st.markdown(f"- {indicator}")
+                        st.markdown("**Other explanations to test**")
+                        for alternative in concept["alternatives"]:
+                            st.markdown(f"- {alternative}")
+                        st.markdown("**What an investigator can check**")
+                        for check in concept["checks"]:
+                            st.markdown(f"- {check}")
+                        st.caption(f"Knowledge classification: {concept['source_class']} · {concept['source_note']}")
+                st.warning("A concept match is educational only. It does not establish suspicious activity, customer risk, or a reporting decision.")
 
 with about_tab:
     st.markdown("### What this prototype can and cannot do")
@@ -115,17 +143,19 @@ with about_tab:
 - Search locally indexed text passages from configured public sources.
 - Display retrieved passages and source links.
 - Match a small set of phrase-based AML typology indicators in anonymised scenarios.
+- Explain a curated set of AML concepts using transparent keyword/alias lookup.
 - Suggest general evidence-led investigation checks.
 
 **Current limitations**
-- Retrieval uses transparent lexical ranking (TF-IDF-like), not semantic search or BM25.
+- Policy retrieval uses transparent lexical ranking (TF-IDF-like), not semantic search or BM25.
+- Concept lookup is curated alias/keyword matching, not an LLM or semantic model.
 - Scenario analysis is phrase matching, not a trained AML model.
 - The application does not establish facts, determine suspicion, generate SAR/STR decisions, or provide legal advice.
 - Internal HDFC Bank SOPs, alert thresholds, workflows, and confidential procedures are not included unless separately approved and lawfully provided.
 - Source versions and applicability must be checked before operational reliance.
 - No live customer data should be entered.
 
-**Required abstention**
+**Required policy abstention**
 > This information is not covered in the provided policy documents.
 
 **Production prerequisites**

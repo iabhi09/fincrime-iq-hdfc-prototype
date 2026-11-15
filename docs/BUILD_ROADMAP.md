@@ -10,7 +10,7 @@ This roadmap describes the public portfolio prototype. It is not an HDFC Bank im
 - [x] Phrase-based educational indicator rules
 - [x] Unit tests for core logic
 - [x] GitHub Actions test workflow
-- [x] Run core and ingestion unit tests in GitHub Actions (green on commit `3e9598387cd20a220cac4f3f42c2079dc4ea8001`; later documentation/configuration commits are also queued for checks)
+- [x] Core and ingestion tests run in GitHub Actions
 - [ ] Run the app locally and review the user experience
 
 ## Phase 2 — Evidence and source governance
@@ -30,8 +30,9 @@ This roadmap describes the public portfolio prototype. It is not an HDFC Bank im
 - [x] Explain each potential indicator in plain language
 - [x] Separate user-provided observations, potential interpretations, alternative explanations and missing information
 - [x] Generate general evidence-led next-check suggestions
-- [x] Add synthetic scenario regression tests
 - [x] Keep outputs explicitly non-determinative and human-reviewed
+- [x] Add a curated AML concept library with definitions, examples, alternative explanations and investigation checks
+- [x] Add deterministic concept lookup and unit tests
 
 ## Phase 4 — Demonstration readiness
 - [ ] Add privacy-safe sample questions and synthetic scenarios
