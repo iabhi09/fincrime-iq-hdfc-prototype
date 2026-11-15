@@ -27,11 +27,11 @@ This roadmap describes the public portfolio prototype. It is not an HDFC Bank im
 - [x] Add a basic explicit-negation safeguard to phrase matching (limited; not full NLP)
 - [x] Add a synthetic scenario regression suite
 - [ ] Expand scenario vocabulary and add broader context safeguards
-- [ ] Explain each potential indicator in plain language
-- [ ] Separate observed facts, possible interpretations and missing information
-- [ ] Generate evidence-led next-check suggestions
-- [ ] Add synthetic scenario test suite
-- [ ] Keep all outputs explicitly non-determinative and human-reviewed
+- [x] Explain each potential indicator in plain language
+- [x] Separate user-provided observations, potential interpretations, alternative explanations and missing information
+- [x] Generate general evidence-led next-check suggestions
+- [x] Add synthetic scenario regression tests
+- [x] Keep outputs explicitly non-determinative and human-reviewed
 
 ## Phase 4 — Demonstration readiness
 - [ ] Add privacy-safe sample questions and synthetic scenarios
