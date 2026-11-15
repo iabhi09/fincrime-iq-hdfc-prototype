@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from fincrime_core import ABSTENTION, analyse_scenario, load_chunks, retrieve
+from fincrime_core import ABSTENTION, analyse_scenario, build_investigation_summary, load_chunks, retrieve
 
 
 class CoreTests(unittest.TestCase):
@@ -94,6 +94,38 @@ class CoreTests(unittest.TestCase):
     def test_no_match_is_not_a_clearance(self):
         self.assertEqual(analyse_scenario("A customer updated their email address."), [])
         self.assertEqual(ABSTENTION, "This information is not covered in the provided policy documents.")
+
+
+    def test_investigation_summary_separates_user_statements_and_interpretations(self):
+        scenario = "The customer receives funds from several unrelated individuals. Most funds move out on the same day."
+        summary = build_investigation_summary(scenario)
+        self.assertEqual(
+            summary["observed_facts"],
+            [
+                "The customer receives funds from several unrelated individuals.",
+                "Most funds move out on the same day.",
+            ],
+        )
+        self.assertTrue(summary["potential_indicators"])
+        self.assertTrue(summary["alternative_explanations"])
+        self.assertTrue(summary["missing_information"])
+        self.assertTrue(summary["suggested_checks"])
+        self.assertIn("not independently verified", summary["disclaimer"])
+
+    def test_investigation_summary_does_not_invent_customer_details(self):
+        scenario = "The customer receives a monthly salary."
+        summary = build_investigation_summary(scenario)
+        self.assertEqual(summary["observed_facts"], [scenario])
+        self.assertEqual(summary["potential_indicators"], [])
+        self.assertIn("not a clearance", summary["no_indicator_message"])
+        self.assertNotIn("customer is a mule", " ".join(summary["observed_facts"]).lower())
+
+    def test_investigation_summary_alternatives_are_explicitly_hypothetical(self):
+        summary = build_investigation_summary("Funds were transferred to a beneficiary.")
+        self.assertTrue(any(
+            "possibilities to test" in item.lower()
+            for item in summary["alternative_explanations"]
+        ))
 
 
 if __name__ == "__main__":
