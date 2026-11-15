@@ -239,6 +239,61 @@ def analyse_scenario(scenario: str) -> list[dict[str, Any]]:
     return results
 
 
+
+def build_investigation_summary(scenario: str) -> dict[str, Any]:
+    """Build a cautious, structured summary from an anonymised scenario.
+
+    Observed facts are only the user's own sentences, not independently
+    verified facts. Interpretations remain phrase-based educational prompts.
+    """
+    cleaned = re.sub(r"\\s+", " ", scenario).strip()
+    observed = [
+        sentence.strip(" \\t-")
+        for sentence in re.split(r"(?<=[.!?])\\s+", cleaned)
+        if sentence.strip(" \\t-")
+    ]
+    indicators = analyse_scenario(cleaned)
+    checks = [
+        "Confirm the customer's stated occupation or business, account purpose, and expected activity.",
+        "Compare the described activity with historical transactions, amounts, frequency, channels, and timing.",
+        "Identify the originators and beneficiaries and establish their relationship to the customer.",
+        "Understand the source and purpose of funds and review relevant supporting information.",
+        "Record the customer's explanation, evidence reviewed, unresolved gaps, and rationale in line with approved procedures.",
+    ]
+    for indicator in indicators:
+        for check in indicator["checks"]:
+            if check not in checks:
+                checks.append(check)
+
+    return {
+        "observed_facts": observed,
+        "potential_indicators": indicators,
+        "alternative_explanations": [
+            "A legitimate business model, such as marketplace collections or payments made on behalf of customers, may explain multiple incoming and outgoing payments if supported by evidence.",
+            "Family, shared-expense, reimbursement, or other personal transfers may explain activity involving multiple parties where relationships and purpose are credible.",
+            "Payroll, vendor, or other authorised disbursement activity may explain onward transfers where the customer has a documented role and the flow is consistent with the stated purpose.",
+            "These are possibilities to test, not assumptions about this customer.",
+        ],
+        "missing_information": [
+            "Customer occupation or business activity and expected account usage.",
+            "Transaction dates, amounts, channels, frequency, and historical baseline.",
+            "Identity, relationship, and purpose of the originators and beneficiaries.",
+            "Source of funds and economic purpose of the transactions.",
+            "Customer explanation and relevant supporting evidence.",
+        ],
+        "suggested_checks": checks,
+        "disclaimer": (
+            "Scenario statements are user-provided and are not independently verified. "
+            "Phrase matches are educational prompts, not proof of wrongdoing or a customer risk decision. "
+            "Follow current approved institutional procedures."
+        ),
+        "no_indicator_message": (
+            "No configured phrase indicators matched. This is not a clearance or a conclusion that the activity is low risk."
+            if not indicators else ""
+        ),
+    }
+
+
 def source_label(chunk: dict[str, Any]) -> str:
     title = chunk.get("source_title") or chunk.get("source_id") or "Unspecified source"
     section = chunk.get("section")
