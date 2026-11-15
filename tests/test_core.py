@@ -49,7 +49,21 @@ class CoreTests(unittest.TestCase):
         result = analyse_scenario("Transaction activity is much higher than salary and outside expected activity.")
         self.assertTrue(any(x["name"] == "Potential customer-profile mismatch" for x in result))
 
-    def test_no_match_is_not_a_clearance(self):
+
+    def test_natural_language_multi_originator_same_day_scenario(self):
+        scenario = (
+            "A salaried customer received funds from 12 unrelated individuals "
+            "and transferred nearly all to a single beneficiary on the same day."
+        )
+        result = analyse_scenario(scenario)
+        names = {item["name"] for item in result}
+        self.assertIn("Potential pass-through activity", names)
+        self.assertIn("Potential money-mule indicators", names)
+
+    def test_one_beneficiary_phrase_detected(self):
+        result = analyse_scenario("Funds from multiple people were sent to one beneficiary.")
+        self.assertTrue(any(x["name"] == "Potential pass-through activity" for x in result))
+\n    def test_no_match_is_not_a_clearance(self):
         self.assertEqual(analyse_scenario("A customer updated their email address."), [])
         self.assertEqual(ABSTENTION, "This information is not covered in the provided policy documents.")
 
