@@ -6,7 +6,7 @@ This guide is for a later public portfolio demonstration. Deployment is optional
 
 Do not deploy this as a real AML/KYC decision tool. It is an educational prototype. Before a public demo:
 - Confirm the latest GitHub Actions run is green.
-- Run the source ingestion locally and review the generated manifest and passages.
+- Run source ingestion locally and review the generated manifest and passages.
 - Confirm that no raw documents, generated customer records, secrets, or personal data are committed.
 - Review the app's limitations and HDFC non-affiliation notice.
 - Test the interface using synthetic scenarios only.
@@ -18,7 +18,7 @@ Do not deploy this as a real AML/KYC decision tool. It is an educational prototy
 3. Select branch `main`.
 4. Set the main file path to `app.py`.
 5. Deploy. The platform should install packages from `requirements.txt`.
-6. Open the generated app URL and verify both tabs load.
+6. Open the generated app URL and verify all four areas load: Policy Intelligence, Investigation Intelligence, AML Concepts, and About & limitations.
 7. Keep the app public only if you are comfortable with the repository and demo being public.
 
 Hosting free tiers, limits, and availability are controlled by the provider and can change. This repository does not promise free hosting forever.
@@ -35,7 +35,7 @@ It downloads configured public sources into `knowledge_base/raw/` and writes:
 - `knowledge_base/extracted/chunks.jsonl`
 - `knowledge_base/extracted/manifest.json`
 
-These files are local generated data and should remain uncommitted. Review every source and extracted passage before relying on it. If the deployed app has no extracted chunks, Policy Intelligence will correctly return the abstention response rather than pretending the knowledge base is populated.
+These files are local generated data and should remain uncommitted. Review every source and extracted passage before relying on it. If the deployed app has no extracted chunks, Policy Intelligence will return the abstention response rather than pretending the knowledge base is populated. The curated AML Concepts tab works independently of the downloaded policy corpus.
 
 ## Privacy and security
 

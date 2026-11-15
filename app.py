@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import streamlit as st
+from demo_scenarios import DEMO_SCENARIOS, get_demo_scenario
 from aml_concepts import retrieve_concepts
 from fincrime_core import ABSTENTION, build_investigation_summary, load_chunks, retrieve, source_label
 
@@ -27,6 +28,11 @@ policy_tab, investigation_tab, concepts_tab, about_tab = st.tabs(
 
 with policy_tab:
     st.markdown("### Ask about indexed public-source material")
+    if not chunks:
+        st.warning(
+            "No policy passages are indexed in this checkout yet. The policy tab will not invent answers. "
+            "Run the local source-ingestion command and review its manifest and extracted passages before using this tab."
+        )
     authority_options = sorted({
         str(row.get("authority")).strip()
         for row in chunks
@@ -67,8 +73,13 @@ with policy_tab:
 
 with investigation_tab:
     st.markdown("### Explore an anonymised transaction scenario")
+    st.caption("You can use one of the invented examples or write your own fully anonymised scenario.")
+    demo_names = ["Write my own scenario"] + list(DEMO_SCENARIOS.keys())
+    selected_demo = st.selectbox("Optional synthetic example", demo_names, key="demo_scenario")
+    default_scenario = get_demo_scenario(selected_demo)
     scenario = st.text_area(
         "Describe the activity without personal or identifying information",
+        value=default_scenario,
         placeholder="Example: A salaried customer receives funds from several unrelated individuals and transfers most of the money to one beneficiary on the same day.",
         height=140,
         key="scenario"
