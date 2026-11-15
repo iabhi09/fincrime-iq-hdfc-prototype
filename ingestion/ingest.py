@@ -33,7 +33,7 @@ def utc_now() -> str:
 
 
 def clean(text: str) -> str:
-    return re.sub(r"\\s+", " ", text).strip()
+    return re.sub(r"\s+", " ", text).strip()
 
 
 def split_chunks(text: str, size: int = 1100, overlap: int = 140) -> list[str]:
@@ -181,7 +181,7 @@ def main() -> None:
 
     with OUT.open("w", encoding="utf-8") as handle:
         for item in all_chunks:
-            handle.write(json.dumps(item, ensure_ascii=False) + "\\n")
+            handle.write(json.dumps(item, ensure_ascii=False) + "\n")
 
     manifest = {
         "generated_at": utc_now(),
