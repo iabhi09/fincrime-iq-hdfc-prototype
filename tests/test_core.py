@@ -17,6 +17,19 @@ class CoreTests(unittest.TestCase):
         self.assertEqual(result[0]["source_title"], "CDD policy")
         self.assertIn("matched_terms", result[0])
 
+    def test_retrieval_can_filter_by_authority_class(self):
+        chunks = [
+            {"authority": "HDFC Bank public policy", "text": "Customer due diligence requirements."},
+            {"authority": "International standards", "text": "Customer due diligence recommendations."},
+        ]
+        result = retrieve(
+            "customer due diligence",
+            chunks,
+            authorities={"International standards"},
+        )
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["authority"], "International standards")
+
     def test_retrieval_handles_empty_inputs(self):
         self.assertEqual(retrieve("   ", []), [])
         self.assertEqual(retrieve("beneficial ownership", [], limit=0), [])
