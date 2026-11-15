@@ -1,62 +1,110 @@
 {
   "project": "FinCrime IQ — Policy & Investigation Intelligence",
   "disclaimer": "Independent public-source prototype; not affiliated with or endorsed by HDFC Bank.",
+  "registry_reviewed_on": "2026-11-15",
+  "review_note": "URLs and displayed metadata were checked against official publisher pages on the review date. Re-check before each demonstration or operational use. A registry review is not legal validation.",
+  "authority_classes": [
+    "HDFC Bank public policy",
+    "Indian law and regulation",
+    "Indian regulatory guidance",
+    "International standards",
+    "Industry guidance",
+    "General AML typology knowledge"
+  ],
   "sources": [
     {
       "id": "hdfc_kyc_aml_policy",
       "title": "HDFC Bank Policy on KYC norms, AML and CFT measures",
       "authority": "HDFC Bank public policy",
+      "publisher": "HDFC Bank",
       "url": "https://www.hdfc.bank.in/content/dam/hdfcbankpws/in/en/personal-banking/discover-products/about-us/corporate-governance/codes-and-policies/Policy-on-KYC-norms-AML-and-CFT-measures.pdf",
       "format": "pdf",
-      "status": "verify_before_use"
+      "published_or_effective_date": null,
+      "publisher_last_updated": "2026-01",
+      "checked_on": "2026-11-15",
+      "status": "publisher_metadata_verified_version_not_independently_archived",
+      "notes": "Official HDFC page/search metadata identifies the policy as last updated January 2026. Preserve and review the downloaded copy before relying on any passage."
     },
     {
       "id": "hdfc_codes_policies",
-      "title": "HDFC Bank Codes and Policies",
+      "title": "HDFC Bank Codes and Policies directory",
       "authority": "HDFC Bank public website",
+      "publisher": "HDFC Bank",
       "url": "https://www.hdfc.bank.in/about-us/corporate-governance/codes-and-policies",
       "format": "html",
-      "status": "directory"
+      "checked_on": "2026-11-15",
+      "status": "directory_only_not_policy_text",
+      "notes": "Directory confirms that the KYC/AML/CFT policy and a Note on KYC/AML/CFT process are listed. Directory content itself is not a substitute for the linked documents."
     },
     {
       "id": "rbi_kyc_2025",
       "title": "RBI (Commercial Banks – Know Your Customer) Directions, 2025",
-      "authority": "Indian regulation",
-      "url": "https://rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=13141",
+      "authority": "Indian law and regulation",
+      "publisher": "Reserve Bank of India",
+      "url": "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=13141",
       "format": "html",
-      "status": "verify_current_version"
+      "issued_on": "2025-11-28",
+      "publisher_updated_as_of": "2026-10-01",
+      "checked_on": "2026-11-15",
+      "status": "official_consolidated_direction_metadata_verified",
+      "notes": "The RBI page states that the consolidated Directions are updated as on October 1, 2026. Confirm applicability to the relevant entity and read linked amendments/notifications."
+    },
+    {
+      "id": "rbi_kyc_amendment_2026_09",
+      "title": "RBI (Commercial Banks – Know Your Customer) Amendment Directions, 2026",
+      "authority": "Indian law and regulation",
+      "publisher": "Reserve Bank of India",
+      "url": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13699",
+      "format": "html",
+      "issued_on": "2026-09-18",
+      "checked_on": "2026-11-15",
+      "status": "official_amendment_notice_verified",
+      "notes": "Amendment notice dated September 18, 2026. The consolidated Directions page should be used alongside amendment notices and effective-date notes."
     },
     {
       "id": "pmla_india_code",
       "title": "Prevention of Money-laundering Act, 2002",
-      "authority": "Indian legislation",
+      "authority": "Indian law and regulation",
+      "publisher": "India Code, Government of India",
       "url": "https://www.indiacode.nic.in/indiacode/handle/123456789/2036?view_type=browse",
       "format": "html",
-      "status": "verify_amendments_and_consolidation"
+      "checked_on": "2026-11-15",
+      "status": "verify_consolidated_text_and_amendments",
+      "notes": "Do not treat a bare Act PDF or historical record as a complete current consolidation. Verify amendment history and commencement before indexing provisions."
     },
     {
       "id": "fiu_rules",
-      "title": "FIU-IND AML legislation and notifications",
+      "title": "FIU-IND AML legislation and notifications — PML (Maintenance of Records) Rules",
       "authority": "Indian regulatory material",
+      "publisher": "Financial Intelligence Unit – India",
       "url": "https://fiuindia.gov.in/files/AML_Legislation/notification.html",
       "format": "html",
-      "status": "review_amendments"
+      "checked_on": "2026-11-15",
+      "status": "amendment_index_not_consolidated",
+      "notes": "The page lists legislation/notifications and includes amendment text. Review all applicable amendments; do not assume this page is a single consolidated version."
     },
     {
       "id": "fiu_faq",
-      "title": "FIU-IND FAQs",
+      "title": "FIU-IND Frequently Asked Questions",
       "authority": "Indian regulatory guidance",
-      "url": "https://fiuindia.gov.in/files/FAQs/FAQs.html",
+      "publisher": "Financial Intelligence Unit – India",
+      "url": "https://fiuindia.gov.in/files/FAQs/faqs.html",
       "format": "html",
-      "status": "verify_current_version"
+      "checked_on": "2026-11-15",
+      "status": "official_guidance_version_date_not_clear",
+      "notes": "Use as explanatory guidance only. Confirm controlling requirements against the Act, Rules and applicable regulator directions."
     },
     {
       "id": "fatf_recommendations",
       "title": "FATF Recommendations",
       "authority": "International standards",
+      "publisher": "Financial Action Task Force",
       "url": "https://www.fatf-gafi.org/en/publications/Fatfrecommendations/Fatf-recommendations.html",
       "format": "html",
-      "status": "verify_current_version"
+      "publisher_updated_as_of": "2026-06",
+      "checked_on": "2026-11-15",
+      "status": "official_page_metadata_verified",
+      "notes": "FATF states Recommendations last updated June 2026. International standards are not automatically Indian law or HDFC Bank policy."
     }
   ]
 }
